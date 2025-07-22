@@ -14,7 +14,7 @@ public class CustomerDOAMock implements ICustomerDAO{
     public void save(Customer customer) {
         // simple sleep
         try {
-            Thread.sleep(350);
+            Thread.sleep(370);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
