@@ -10,8 +10,9 @@ import java.time.LocalDateTime;
 @Aspect
 @Configuration
 public class TraceAdvice {
-    @After("execution(* customers.EmailSender.sendEmail(..))")
-    public void traceAfterMethod(JoinPoint joinPoint) {
-        System.out.println(LocalDateTime.now()+" method="+joinPoint.getSignature().getName());
+    @After("execution(* customers.EmailSender.sendEmail(..)) && args(email, message)")
+    public void traceAfterMethod(JoinPoint joinPoint, String email, String message) {
+        System.out.println(LocalDateTime.now()+" method="+joinPoint.getSignature().getName()+ " address="+email+"\n" +
+                "message= "+message);
     }
 }
