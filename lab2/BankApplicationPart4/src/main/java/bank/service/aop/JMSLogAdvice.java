@@ -1,20 +1,20 @@
-package bank.advice;
+package bank.service.aop;
 
 import bank.logging.ILogger;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 @Aspect
 @Configuration
-public class TraceAdvice {
+public class JMSLogAdvice {
     @Autowired
     private ILogger logger;
 
-    @Before("execution (* bank.dao.*.*(..))")
-    public void traceBefore(JoinPoint joinPoint) {
-        logger.log("Calling method: "+ joinPoint.getSignature().getName());
+    @After("execution (* bank.jms.*.sendJMSMessage(..)) && args(text)")
+    public void logJMSMessage(JoinPoint jp, String text) {
+        logger.log("JMS text: "+text);
     }
 }
