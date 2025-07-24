@@ -17,6 +17,7 @@ public class ProductDAO {
     public void clearDB() {
         Map<String,Object> namedParameters = new HashMap<String,Object>();
         jdbcTemplate.update("DELETE from product",namedParameters);
+        jdbcTemplate.update("DELETE from supplier",namedParameters);
     }
 
     public void save(Product product) {
@@ -26,6 +27,12 @@ public class ProductDAO {
         namedParameters.put("price", product.getPrice());
         jdbcTemplate.update("INSERT INTO product VALUES ( :productNumber, :name, :price)",namedParameters);
 
+        Map<String,Object> namedParametersS = new HashMap<String,Object>();
+        namedParametersS.put("productNumber", product.getProductNumber());
+        namedParametersS.put("supplierNumber", product.getSupplier().getSupplierNumber());
+        namedParametersS.put("name", product.getSupplier().getName());
+        namedParametersS.put("phone", product.getSupplier().getPhone());
+        jdbcTemplate.update("INSERT INTO supplier VALUES ( :supplierNumber, :name, :phone, :productNumber)",namedParametersS);
         }
 
 
@@ -38,7 +45,8 @@ public class ProductDAO {
                 (rs, rowNum) -> new Product( rs.getInt("productNumber"),
                         rs.getString("name"),
                         rs.getString("price")));
-
+        Supplier supplier = getSupplierForProduct(productNumber);
+        product.setSupplier(supplier);
         return product;
     }
 
@@ -48,6 +56,11 @@ public class ProductDAO {
                 (rs, rowNum) -> new Product( rs.getInt("productNumber"),
                         rs.getString("name"),
                         rs.getString("price")));
+
+        for (Product product: products){
+            Supplier supplier = getSupplierForProduct(product.getProductNumber());
+            product.setSupplier(supplier);
+        }
         return products;
     }
 
@@ -60,13 +73,27 @@ public class ProductDAO {
                 (rs, rowNum) -> new Product( rs.getInt("productNumber"),
                         rs.getString("name"),
                         rs.getString("price")));
-
+        Supplier supplier = getSupplierForProduct(product.getProductNumber());
+        product.setSupplier(supplier);
         return product;
     }
+
+    Supplier getSupplierForProduct(int productNumber){
+        Map<String,Object> namedParameters = new HashMap<String,Object>();
+        namedParameters.put("productNumber", productNumber);
+        Supplier supplier = jdbcTemplate.queryForObject("SELECT * FROM supplier WHERE "
+                        + "productNumber =:productNumber ",
+                namedParameters,
+                (rs, rowNum) -> new Supplier( rs.getInt("supplierNumber"),
+                        rs.getString("name"),
+                        rs.getString("phone")));
+
+        return supplier;}
 
     public void removeProduct(int productNumber) {
         Map<String,Object> namedParameters = new HashMap<String,Object>();
         namedParameters.put("productNumber", productNumber);
+        jdbcTemplate.update("DELETE from supplier where " + "productNumber =:productNumber ",namedParameters);
         jdbcTemplate.update("DELETE from product where " + "productNumber =:productNumber ",namedParameters);
     }
 

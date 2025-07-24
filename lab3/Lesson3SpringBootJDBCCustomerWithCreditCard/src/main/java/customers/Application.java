@@ -36,8 +36,12 @@ public class Application implements CommandLineRunner {
 		System.out.println("-----------All customers ----------------");
 		System.out.println(customerDao.getAllCustomers());
 		Product product = new Product(101, "A", "100");
+		Supplier supplier = new Supplier(201, "Visa", "11/23");
+		product.setSupplier(supplier);
 		productDAO.save(product);
 		product = new Product(102, "B", "100");
+		supplier = new Supplier(202, "Hisa", "12/24");
+		product.setSupplier(supplier);
 		productDAO.save(product);
 		System.out.println(productDAO.getAllProducts());
 		System.out.println(productDAO.findByProductNumber(101));
