@@ -21,57 +21,53 @@ public class ProductDAO {
 
     public void save(Product product) {
         Map<String,Object> namedParameters = new HashMap<String,Object>();
-        namedParameters.put("", product.getProductNumber());
-        namedParameters.put("name", customer.getName());
-        namedParameters.put("email", customer.getEmail());
-        namedParameters.put("phone", customer.getPhone());
-        jdbcTemplate.update("INSERT INTO customer VALUES ( :customernumber, :name, :email, :phone)",namedParameters);
+        namedParameters.put("productNumber", product.getProductNumber());
+        namedParameters.put("name", product.getName());
+        namedParameters.put("price", product.getPrice());
+        jdbcTemplate.update("INSERT INTO product VALUES ( :productNumber, :name, :price)",namedParameters);
 
         }
 
 
-    public Customer getCustomer(int customerNumber){
+    public Product findByProductNumber(int productNumber){
         Map<String,Object> namedParameters = new HashMap<String,Object>();
-        namedParameters.put("customerNumber", customerNumber);
-        Customer customer = jdbcTemplate.queryForObject("SELECT * FROM customer WHERE "
-                        + "customerNumber =:customerNumber ",
+        namedParameters.put("productNumber", productNumber);
+        Product product = jdbcTemplate.queryForObject("SELECT * FROM product WHERE "
+                        + "productNumber =:productNumber ",
                 namedParameters,
-                (rs, rowNum) -> new Customer( rs.getInt("customerNumber"),
+                (rs, rowNum) -> new Product( rs.getInt("productNumber"),
                         rs.getString("name"),
-                        rs.getString("email"),
-                        rs.getString("phone")));
+                        rs.getString("price")));
 
-        CreditCard creditCard = getCreditCardForCustomer(customer.getCustomerNumber());
-        customer.setCreditCard(creditCard);
-        return customer;
-
+        return product;
     }
 
-    public List<Customer> getAllCustomers(){
-        List<Customer> customers = jdbcTemplate.query("SELECT * FROM customer",
-                new HashMap<String, Customer>(),
-                (rs, rowNum) -> new Customer( rs.getInt("customerNumber"),
+    public List<Product> getAllProducts(){
+        List<Product> products = jdbcTemplate.query("SELECT * FROM product",
+                new HashMap<String, Product>(),
+                (rs, rowNum) -> new Product( rs.getInt("productNumber"),
                         rs.getString("name"),
-                        rs.getString("email"),
-                        rs.getString("phone")));
-
-        for (Customer customer: customers){
-            CreditCard creditCard = getCreditCardForCustomer(customer.getCustomerNumber());
-            customer.setCreditCard(creditCard);
-        }
-        return customers;
+                        rs.getString("price")));
+        return products;
     }
 
-    CreditCard getCreditCardForCustomer(int customerNumber){
+    public Product findByProductName(String name){
         Map<String,Object> namedParameters = new HashMap<String,Object>();
-        namedParameters.put("customerNumber", customerNumber);
-        CreditCard creditCard = jdbcTemplate.queryForObject("SELECT * FROM creditcard WHERE "
-                        + "customerNumber =:customerNumber ",
+        namedParameters.put("name", name);
+        Product product = jdbcTemplate.queryForObject("SELECT * FROM product WHERE "
+                        + "name =:name ",
                 namedParameters,
-                (rs, rowNum) -> new CreditCard( rs.getString("cardnumber"),
-                        rs.getString("type"),
-                        rs.getString("validationDate")));
+                (rs, rowNum) -> new Product( rs.getInt("productNumber"),
+                        rs.getString("name"),
+                        rs.getString("price")));
 
-        return creditCard;
+        return product;
     }
+
+    public void removeProduct(int productNumber) {
+        Map<String,Object> namedParameters = new HashMap<String,Object>();
+        namedParameters.put("productNumber", productNumber);
+        jdbcTemplate.update("DELETE from product where " + "productNumber =:productNumber ",namedParameters);
+    }
+
 }
