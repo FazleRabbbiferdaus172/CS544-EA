@@ -1,11 +1,14 @@
 package domain;
 
+import org.hibernate.engine.internal.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
 @Entity
+@Table(name="LAB4_order")
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +16,7 @@ public class Order {
 	private String ordernr;
 	private String date;
 	private String status;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Customer customer;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Collection<OrderLine> orderlines = new ArrayList<OrderLine>();
