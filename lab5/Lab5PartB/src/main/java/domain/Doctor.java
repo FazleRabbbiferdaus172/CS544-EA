@@ -1,8 +1,15 @@
 package domain;
 
 
-public class Doctor {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
+@Entity
+public class Doctor {
+	@Id
+	@GeneratedValue
+	private Long id;
 	private String doctorType;
 	private String firstName;
 	private String lastName;

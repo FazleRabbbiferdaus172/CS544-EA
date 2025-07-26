@@ -1,12 +1,20 @@
 package domain;
 
 
+import jakarta.persistence.*;
 
+@Entity
+@SecondaryTable(name="address")
 public class Patient {
-
+	@Id
+	@GeneratedValue
+	private Long id;
 	private String name;
+	@Column(table = "address")
 	private String street;
+	@Column(table = "address")
 	private String zip;
+	@Column(table = "address")
 	private String city;
 
 	public Patient() {

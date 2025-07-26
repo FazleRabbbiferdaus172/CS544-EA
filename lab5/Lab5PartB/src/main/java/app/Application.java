@@ -4,17 +4,26 @@ import domain.Appointment;
 import domain.Doctor;
 import domain.Patient;
 import domain.Payment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import repositories.AppointmentRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 @EnableJpaRepositories("repositories")
 @EntityScan("domain") 
 public class Application implements CommandLineRunner{
-	
+	private static final Logger log = LoggerFactory.getLogger(Application.class);
+	@Autowired
+	private AppointmentRepository appointmentRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -45,7 +54,10 @@ public class Application implements CommandLineRunner{
 				payment3, doctor2);
 		Appointment appointment4 = new Appointment("14-11-2008", patient1,
 				payment4, doctor1);
-
+		List<Appointment> appointmentList = List.of(appointment1, appointment2, appointment3, appointment4);
+		appointmentRepository.saveAll(appointmentList);
+		List<Appointment> fal = appointmentRepository.findAll();
+		fal.forEach(System.out::println);
 	}
 
 

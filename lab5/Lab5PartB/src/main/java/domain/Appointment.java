@@ -1,11 +1,21 @@
 package domain;
 
+import jakarta.persistence.*;
+import lombok.ToString;
+import org.hibernate.engine.internal.Cascade;
 
+@Entity
+@ToString
 public class Appointment {
-
+	@Id
+	@GeneratedValue
+	private Long id;
 	private String appdate;
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Patient patient;
+	@Embedded
 	private Payment payment;
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Doctor doctor;
 
 	public Appointment() {
