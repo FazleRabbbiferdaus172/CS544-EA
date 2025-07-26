@@ -1,6 +1,7 @@
 package bank.service;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import bank.dao.AccountDAO;
 import bank.dao.IAccountDAO;
@@ -10,6 +11,8 @@ import bank.jms.IJMSSender;
 import bank.jms.JMSSender;
 import bank.logging.ILogger;
 import bank.logging.Logger;
+import bank.service.dto.AccountAdapter;
+import bank.service.dto.AccountDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,13 +35,13 @@ public class AccountService implements IAccountService {
 //		logger = new Logger();
 //	}
 
-	public Account createAccount(long accountNumber, String customerName) {
+	public AccountDTO createAccount(long accountNumber, String customerName) {
 		Account account = new Account(accountNumber);
 		Customer customer = new Customer(customerName);
 		account.setCustomer(customer);
 		accountDAO.saveAccount(account);
 		logger.log("createAccount with parameters accountNumber= "+accountNumber+" , customerName= "+customerName);
-		return account;
+		return AccountAdapter.getAccountDTOFromAccount(account);
 	}
 
 	public void deposit(long accountNumber, double amount) {
@@ -51,13 +54,17 @@ public class AccountService implements IAccountService {
 		}
 	}
 
-	public Account getAccount(long accountNumber) {
+	public AccountDTO getAccount(long accountNumber) {
 		Account account = accountDAO.loadAccount(accountNumber);
-		return account;
+		return AccountAdapter.getAccountDTOFromAccount(account);
 	}
 
-	public Collection<Account> getAllAccounts() {
-		return accountDAO.getAccounts();
+	public Collection<AccountDTO> getAllAccounts() {
+
+		Collection<Account> accounts = accountDAO.getAccounts();
+		return accounts.stream()
+				.map(AccountAdapter::getAccountDTOFromAccount)
+				.collect(Collectors.toList());
 	}
 
 	public void withdraw(long accountNumber, double amount) {
