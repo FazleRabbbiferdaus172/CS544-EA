@@ -11,8 +11,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import bank.service.BankService;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
+@EnableTransactionManagement
 public class Application implements CommandLineRunner{
 	
 	@Autowired
@@ -24,7 +26,15 @@ public class Application implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		bankService.createCustomerAndAccount(12, "Jack Bauer", "jbauer@yahoo.com","1223");
-		bankService.createCustomerAndAccount(14, "Frank Brown", "frankbrown@gmail.com","1248");
+		try {
+			bankService.createCustomerAndAccount(12, "Jack Bauer", "jbauer@yahoo.com","1223");
+		}
+		catch (Exception e) {
+		}
+		try {
+			bankService.createCustomerAndAccount(14, "Frank Brown", "frankbrown@gmail.com","1248");
+		}
+		catch (Exception e) {}
+
 	}
 }
