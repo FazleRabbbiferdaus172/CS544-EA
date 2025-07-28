@@ -47,8 +47,33 @@ public class OrderApplication implements CommandLineRunner {
 		orderRepository.save(o4);
 
 		getAllCustomers();
-
-
+		List<CD> cds = cdRepository.findByArtistAndPriceLessThan("U2", 10);
+		cds.forEach(System.out::println);
+		List<Customer> cus = customerRepository.findByAddressZip("2389HJ");
+		System.out.println("Customer by zip");
+		cus.forEach(System.out::println);
+		cus = customerRepository.getAllCustomersFromUSA();
+		System.out.println("Customer from usa");
+		cus.forEach(System.out::println);
+		System.out.println("CD by artist");
+		cds = cdRepository.findByArtist("U2");
+		cds.forEach(System.out::println);
+		List<String> odrsnm = orderRepository.getOrderNumbersFromOrdersWithStatusClosed();
+		odrsnm.forEach(System.out::println);
+		List<List<String>> nms = customerRepository.getAllCustomersFromCity("Amsterdam");
+		nms.forEach(System.out::println);
+		List<String> ordnms = orderRepository.getOrderNumbersFromOrdersFromCity("Amsterdam");
+		ordnms.forEach(System.out::println);
+		cds = cdRepository.findByArtistAndPriceGreaterThan("U2", 9);
+		cds.forEach(System.out::println);
+		List<Address> adrs = addressRepository.getAllAddressesFromCity("Amsterdam");
+		adrs.forEach(System.out::println);
+		Specification<Order> so = OrderSpecifications.isClosed();
+		List<Order> ords = orderRepository.findAll(so);
+		ords.forEach(System.out::println);
+		Specification<Customer> sc = CustomerSpecifications.isFromCity("Amsterdam");
+		cus = customerRepository.findAll(sc);
+		cus.forEach(System.out::println);
 	}
 
 

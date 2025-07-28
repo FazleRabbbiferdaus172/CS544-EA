@@ -6,7 +6,10 @@ import java.util.Collection;
 
 
 @Entity
-@NamedQuery(name="Customer.getAllCustomersFrom", query="select c from Customer c where c.address.country = :country")
+@NamedQueries({
+		@NamedQuery( name="Customer.getAllCustomersFrom", query="select c from Customer c where c.address.country = :country"),
+		@NamedQuery( name="Customer.getAllCustomersFromUSA", query="select c from Customer c where c.address.country = 'USA'")
+})
 public class Customer {
     private String firstname;
     private String lastname;

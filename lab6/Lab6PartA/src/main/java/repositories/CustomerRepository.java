@@ -13,11 +13,13 @@ import java.util.Set;
 public interface CustomerRepository extends JpaRepository<Customer, Long> , JpaSpecificationExecutor<Customer> {
     List<Customer> findByAddressZip(String zip);
     List<Customer> findByTheordersOrderlinesProductName(String name);
-    
+
+    List<Customer> getAllCustomersFromUSA();
+
     @Query("select c from Customer c where c.address.country = :country")
     List<Customer> getAllCustomersFromCountry(@Param("country")String country);
 
-    @Query("select c from Customer c where c.address.city = :city")
-    List<Customer> getAllCustomersFromCity(@Param("city")String amsterdam);
+    @Query("select c.firstname, c.lastname from Customer c where c.address.city = :city")
+    List<List<String>> getAllCustomersFromCity(@Param("city")String amsterdam);
 
 }
