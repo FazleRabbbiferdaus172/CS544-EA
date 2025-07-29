@@ -1,0 +1,43 @@
+package bank.service;
+import bank.integration.EmailSender;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import bank.domain.Account;
+import bank.domain.Customer;
+import bank.repositories.AccountRepository;
+import bank.repositories.CustomerRepository;
+
+@Service
+public class BankService {
+	@Autowired
+	private AccountRepository accountRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
+	@Autowired
+	private EmailSender emailSender;
+	@Autowired
+	private TraceService traceService;
+
+	@Transactional
+	public void createCustomerAndAccount(int customerId, String customerName, String emailAddress, String AccountNumber){
+		try {
+			Account account = new Account(AccountNumber);
+			accountRepository.save(account);
+			Customer customer = new Customer(customerId, customerName);
+			customer.setAccount(account);
+			customerRepository.saveCustomer(customer);
+			emailSender.sendEmail(emailAddress, "Welcome " + customerName);
+			String successMessage = "Customer " + customer.getName() + " created with account " + account.getAccountNumber();
+			traceService.saveTraceRecord(successMessage);
+		}
+		catch (Exception e) {
+			emailSender.sendEmail(emailAddress, "We could not create your account " + AccountNumber);
+			String failureMessage = "Could not create customer " + customerName + " with account number" + AccountNumber;
+			traceService.saveTraceRecord(failureMessage);
+			throw e;
+		}
+	}
+
+}
