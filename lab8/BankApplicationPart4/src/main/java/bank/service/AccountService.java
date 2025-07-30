@@ -7,6 +7,7 @@ import bank.dao.AccountDAO;
 import bank.dao.IAccountDAO;
 import bank.domain.Account;
 import bank.domain.Customer;
+import bank.exception.InsufficientFundsException;
 import bank.jms.IJMSSender;
 import bank.jms.JMSSender;
 import bank.logging.ILogger;
@@ -48,6 +49,7 @@ public class AccountService implements IAccountService {
 
 	public void deposit(long accountNumber, double amount) {
 		Account account = accountDAO.loadAccount(accountNumber);
+
 		account.deposit(amount);
 		accountDAO.updateAccount(account);
 		logger.log("deposit with parameters accountNumber= "+accountNumber+" , amount= "+amount);
@@ -71,6 +73,9 @@ public class AccountService implements IAccountService {
 
 	public void withdraw(long accountNumber, double amount) {
 		Account account = accountDAO.loadAccount(accountNumber);
+		if (account.getBalance() < amount) {
+			throw new InsufficientFundsException("Withdrawal failed. Insufficient funds in account " + accountNumber);
+		}
 		account.withdraw(amount);
 		accountDAO.updateAccount(account);
 		logger.log("withdraw with parameters accountNumber= "+accountNumber+" , amount= "+amount);
@@ -90,6 +95,9 @@ public class AccountService implements IAccountService {
 	public void withdrawEuros(long accountNumber, double amount) {
 		Account account = accountDAO.loadAccount(accountNumber);
 		double amountDollars = currencyConverter.euroToDollars(amount);
+		if (account.getBalance() < amountDollars) {
+			throw new InsufficientFundsException("Withdrawal failed. Insufficient funds in account " + accountNumber);
+		}
 		account.withdraw(amountDollars);
 		accountDAO.updateAccount(account);
 		logger.log("withdrawEuros with parameters accountNumber= "+accountNumber+" , amount= "+amount);
@@ -98,6 +106,9 @@ public class AccountService implements IAccountService {
 	public void transferFunds(long fromAccountNumber, long toAccountNumber, double amount, String description) {
 		Account fromAccount = accountDAO.loadAccount(fromAccountNumber);
 		Account toAccount = accountDAO.loadAccount(toAccountNumber);
+		if (fromAccount.getBalance() < amount) {
+			throw new InsufficientFundsException("Withdrawal failed. Insufficient funds in account " + fromAccount);
+		}
 		fromAccount.transferFunds(toAccount, amount, description);
 		accountDAO.updateAccount(fromAccount);
 		accountDAO.updateAccount(toAccount);
