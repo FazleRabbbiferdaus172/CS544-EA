@@ -1,0 +1,120 @@
+package bank.service;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
+
+import bank.dao.AccountDAO;
+import bank.dao.IAccountDAO;
+import bank.domain.Account;
+import bank.domain.Customer;
+import bank.exception.InsufficientFundsException;
+import bank.jms.IJMSSender;
+import bank.jms.JMSSender;
+import bank.logging.ILogger;
+import bank.logging.Logger;
+import bank.service.dto.AccountAdapter;
+import bank.service.dto.AccountDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+
+@Service
+@Transactional
+public class AccountService implements IAccountService {
+	@Autowired
+	private IAccountDAO accountDAO;
+	@Autowired
+	private ICurrencyConverter currencyConverter;
+	@Autowired
+	private IJMSSender jmsSender;
+	@Autowired
+	private ILogger logger;
+	
+//	public AccountService(){
+//		accountDAO=new AccountDAO();
+//		currencyConverter= new CurrencyConverter();
+//		jmsSender =  new JMSSender();
+//		logger = new Logger();
+//	}
+
+	public AccountDTO createAccount(long accountNumber, String customerName) {
+		Account account = new Account(accountNumber);
+		Customer customer = new Customer(customerName);
+		account.setCustomer(customer);
+		accountDAO.saveAccount(account);
+		logger.log("createAccount with parameters accountNumber= "+accountNumber+" , customerName= "+customerName);
+		return AccountAdapter.getAccountDTOFromAccount(account);
+	}
+
+	public void deposit(long accountNumber, double amount) {
+		Account account = accountDAO.loadAccount(accountNumber);
+
+		account.deposit(amount);
+		accountDAO.updateAccount(account);
+		logger.log("deposit with parameters accountNumber= "+accountNumber+" , amount= "+amount);
+		if (amount > 10000){
+			jmsSender.sendJMSMessage("Deposit of $ "+amount+" to account with accountNumber= "+accountNumber);
+		}
+	}
+
+	public AccountDTO getAccount(long accountNumber) {
+		Account account = accountDAO.loadAccount(accountNumber);
+		return AccountAdapter.getAccountDTOFromAccount(account);
+	}
+
+	public Collection<AccountDTO> getAllAccounts() {
+
+		Collection<Account> accounts = accountDAO.getAccounts();
+		return accounts.stream()
+				.map(AccountAdapter::getAccountDTOFromAccount)
+				.collect(Collectors.toList());
+	}
+
+	public void withdraw(long accountNumber, double amount) {
+		Account account = accountDAO.loadAccount(accountNumber);
+		if (account.getBalance() < amount) {
+			throw new InsufficientFundsException("Withdrawal failed. Insufficient funds in account " + accountNumber);
+		}
+		account.withdraw(amount);
+		accountDAO.updateAccount(account);
+		logger.log("withdraw with parameters accountNumber= "+accountNumber+" , amount= "+amount);
+	}
+
+	public void depositEuros(long accountNumber, double amount) {
+		Account account = accountDAO.loadAccount(accountNumber);
+		double amountDollars = currencyConverter.euroToDollars(amount);
+		account.deposit(amountDollars);
+		accountDAO.updateAccount(account);
+		logger.log("depositEuros with parameters accountNumber= "+accountNumber+" , amount= "+amount);
+		if (amountDollars > 10000){
+			jmsSender.sendJMSMessage("Deposit of $ "+amount+" to account with accountNumber= "+accountNumber);
+		}
+	}
+
+	public void withdrawEuros(long accountNumber, double amount) {
+		Account account = accountDAO.loadAccount(accountNumber);
+		double amountDollars = currencyConverter.euroToDollars(amount);
+		if (account.getBalance() < amountDollars) {
+			throw new InsufficientFundsException("Withdrawal failed. Insufficient funds in account " + accountNumber);
+		}
+		account.withdraw(amountDollars);
+		accountDAO.updateAccount(account);
+		logger.log("withdrawEuros with parameters accountNumber= "+accountNumber+" , amount= "+amount);
+	}
+
+	public void transferFunds(long fromAccountNumber, long toAccountNumber, double amount, String description) {
+		Account fromAccount = accountDAO.loadAccount(fromAccountNumber);
+		Account toAccount = accountDAO.loadAccount(toAccountNumber);
+		if (fromAccount.getBalance() < amount) {
+			throw new InsufficientFundsException("Withdrawal failed. Insufficient funds in account " + fromAccount);
+		}
+		fromAccount.transferFunds(toAccount, amount, description);
+		accountDAO.updateAccount(fromAccount);
+		accountDAO.updateAccount(toAccount);
+		logger.log("transferFunds with parameters fromAccountNumber= "+fromAccountNumber+" , toAccountNumber= "+toAccountNumber+" , amount= "+amount+" , description= "+description);
+		if (amount > 10000){
+			jmsSender.sendJMSMessage("TransferFunds of $ "+amount+" from account with accountNumber= "+fromAccount+" to account with accountNumber= "+toAccount);
+		}
+	}
+}
