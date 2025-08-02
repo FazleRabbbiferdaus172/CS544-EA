@@ -41,7 +41,15 @@ public class SpringJmsPersonSenderApplication implements CommandLineRunner {
 		String personAsString = objectMapper.writeValueAsString(person);
 
 		System.out.println("Sending a JMS message:" + personAsString);
-		jmsTemplate.convertAndSend("testQueue",personAsString);
+		jmsTemplate.convertAndSend("testTopic",personAsString);
+
+		CalculatorMessage cm = new CalculatorMessage("+", 7);
+		String cms = objectMapper.writeValueAsString(cm);
+		jmsTemplate.convertAndSend("calculatorQueue",cms);
+
+		cm = new CalculatorMessage("+", 7);
+		cms = objectMapper.writeValueAsString(cm);
+		jmsTemplate.convertAndSend("calculatorQueue",cms);
 
 	}
 
