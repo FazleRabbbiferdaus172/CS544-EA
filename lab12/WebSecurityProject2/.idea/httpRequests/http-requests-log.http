@@ -1,0 +1,45 @@
+GET http://localhost:8080/user
+Authorization: Basic user user
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=B503438F1100A93067F5FF52A0F49962
+
+###
+
+GET http://localhost:8080/manager
+Authorization: Basic manager manager
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=A1F8D93CD2D55C2587F1A7FCF9C1B115
+
+###
+
+GET http://localhost:8080/info
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=A1F8D93CD2D55C2587F1A7FCF9C1B115
+
+<> 2025-08-06T004257.200.txt
+
+###
+
+GET http://localhost:8080/manager
+Authorization: Basic manager manager
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+###
+
+GET http://localhost:8080/info
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2025-08-06T003732.200.txt
+
+###
+

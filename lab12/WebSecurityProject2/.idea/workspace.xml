@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="42b297f1-254a-4bb9-91b5-c954cb9f372a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../lab12part1.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12part1/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12part1/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12part1/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12part1/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12part1/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12part1/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12part1/src/main/java/application/Lab12part1Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12part1/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12part1/src/test/java/application/Lab12part1ApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12partB/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12partB/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12partB/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12partB/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12partB/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12partB/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12partB/src/main/java/application/Lab12part1Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12partB/src/main/java/controller/ApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12partB/src/main/java/security/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12partB/src/main/java/security/UserDetailServiceConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12partB/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab12partB/src/test/java/application/Lab12part1ApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "FazleRabbbiferdaus172"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/FazleRabbbiferdaus172/CS544-EA.git",
+    "accountId": "2dd31a3e-13b1-49f0-a37e-bfece864a604"
+  }
+}]]></component>
+  <component name="HttpClientSelectedEnvironments">
+    <file url="jar://$APPLICATION_HOME_DIR$/plugins/restClient/lib/restClient.jar!/com/intellij/ws/rest/client/requests/collection/get-requests.http" environment="test" />
+    <file url="jar://$APPLICATION_HOME_DIR$/plugins/restClient/lib/restClient.jar!/com/intellij/ws/rest/client/requests/collection/requests-with-authorization.http" environment="test" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="1k7Jt6saXXGDuyRhjWaL4e43lbr" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Application.executor": "Run",
+    "HTTP Request.generated-requests | #10.executor": "Run",
+    "HTTP Request.generated-requests | #9.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/ferdaus/workspace/miu/EA/lab12/lab12partA",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\waa\" />
+      <recent name="C:\springtraining\solutions\" />
+      <recent name="C:\waa\workspacenew" />
+      <recent name="C:\springtraining\solutions" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="myapplication.security" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Application">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="myapplication.Application" />
+      <module name="WebSecurityProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="myapplication.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BookServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="books.BookServiceApplication" />
+      <module name="WebSecurityProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="myapplication.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="generated-requests | #10" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#10" index="10" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #9" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#9" index="9" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="WebSecurityProject2" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Application" />
+        <item itemvalue="HTTP Request.generated-requests | #10" />
+        <item itemvalue="HTTP Request.generated-requests | #9" />
+        <item itemvalue="Application.BookServiceApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="42b297f1-254a-4bb9-91b5-c954cb9f372a" name="Default Changelist" comment="" />
+      <created>1605045911785</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605045911785</updated>
+      <workItem from="1754449767693" duration="503000" />
+      <workItem from="1754451184208" duration="652000" />
+      <workItem from="1754458564067" duration="802000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
