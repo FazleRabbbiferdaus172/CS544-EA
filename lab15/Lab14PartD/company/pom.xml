@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ToolCalling</groupId>
-	<artifactId>profit</artifactId>
+	<artifactId>company</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>profit</name>
+	<name>company</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -53,12 +53,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>com.h2database</groupId>
-					<artifactId>h2</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
