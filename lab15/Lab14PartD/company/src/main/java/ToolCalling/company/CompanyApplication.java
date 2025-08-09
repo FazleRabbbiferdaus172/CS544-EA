@@ -14,9 +14,4 @@ public class CompanyApplication {
 		SpringApplication.run(CompanyApplication.class, args);
 	}
 
-	@Bean
-	public ChatClient chatClient(ChatModel chatModel, ChatMemory chatMemory) {
-		return ChatClient.builder(chatModel)
-				.build();
-	}
 }

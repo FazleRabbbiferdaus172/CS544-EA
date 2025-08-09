@@ -4,6 +4,8 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.tool.ToolCallbackProvider;
+import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,5 +31,10 @@ public class ProfitApplication implements CommandLineRunner {
 		profitRepository.save(profitEntity3);
 		ProfitEntity profitEntity4 = new ProfitEntity("April", 180.00);
 		profitRepository.save(profitEntity4);
+	}
+
+	@Bean
+	public ToolCallbackProvider tools(ProfitService profitService) {
+		return MethodToolCallbackProvider.builder().toolObjects(profitService).build();
 	}
 }
